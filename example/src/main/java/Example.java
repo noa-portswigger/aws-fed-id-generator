@@ -1,4 +1,4 @@
-package com.resare.aws_fed_id.generator;
+import com.resare.aws_fed_id.generator.TokenGenerator;
 
 public class Example {
 
