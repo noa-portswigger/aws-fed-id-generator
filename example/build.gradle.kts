@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":"))
+    implementation("com.resare:aws-fed-id-generator:0.0.1")
     runtimeOnly("ch.qos.logback:logback-classic:1.5.18")
 }
 
