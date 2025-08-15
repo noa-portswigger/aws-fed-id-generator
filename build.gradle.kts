@@ -1,6 +1,7 @@
 plugins {
     java
-    application
+    `java-library`
+    id("com.diffplug.spotless") version "6.25.0"
 }
 
 java {
@@ -14,9 +15,10 @@ repositories {
 }
 
 dependencies {
+    api("software.amazon.awssdk:auth:2.32.20")
+    api("software.amazon.awssdk:core:2.32.20")
+
     implementation("org.slf4j:slf4j-api:2.0.16")
-    implementation("software.amazon.awssdk:auth:2.32.20")
-    implementation("software.amazon.awssdk:core:2.32.20")
     implementation("software.amazon.awssdk:sso:2.32.20")
     implementation("software.amazon.awssdk:ssooidc:2.32.20")
     implementation("software.amazon.awssdk:sdk-core:2.32.20")
@@ -25,13 +27,18 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testRuntimeOnly("ch.qos.logback:logback-classic:1.5.18")
-
-}
-
-application {
-    mainClass.set("com.resare.aws_fed_id.generator.Example")
 }
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+    dependsOn("spotlessCheck")
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
 }
